@@ -7,6 +7,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using System.Web.Http.Cors;
 using System.Web.Http.Description;
 using TabataAPI.Models;
 
@@ -70,6 +71,7 @@ namespace TabataAPI.Controllers
         }
 
         // POST api/Record
+        [EnableCors(origins: "http://run.plnkr.co/", headers: "*", methods: "*")]
         [ResponseType(typeof(Record))]
         public IHttpActionResult PostRecord(Record record)
         {
