@@ -13,6 +13,7 @@ using TabataAPI.Models;
 
 namespace TabataAPI.Controllers
 {
+    [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class RecordController : ApiController
     {
         private TabataAPIDataContext db = new TabataAPIDataContext();
@@ -71,7 +72,7 @@ namespace TabataAPI.Controllers
         }
 
         // POST api/Record
-        [EnableCors(origins: "http://run.plnkr.co/", headers: "*", methods: "*")]
+        [EnableCors(origins: "*", headers: "*", methods: "*")]
         [ResponseType(typeof(Record))]
         public IHttpActionResult PostRecord(Record record)
         {
