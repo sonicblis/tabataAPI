@@ -20,8 +20,8 @@ namespace TabataAPI.Controllers
 
         // GET api/Record
         public IQueryable<Record> GetRecords()
-        {
-            return db.Records;
+        {			
+			return db.Records;
         }
 
         // GET api/Record/5

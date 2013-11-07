@@ -1,0 +1,119 @@
+﻿/* Styles go here */
+
+img{
+  width: 110px;
+  height: 110px;
+  padding-top: 5px;
+}
+img:first-child{
+  padding-left: 5px;
+}
+img:last-child{
+  padding-right: 5px;
+}
+.header{
+  padding: 4px;
+}
+.paddedImg{
+  padding-right: 6px;
+}
+.content {
+  background: #444;
+  color: #ccc;
+  font-weight: bold;
+  font-size: 14pt;
+}
+.segments > div {
+  float: left;
+  width: 36px;
+  font-weight: normal;
+  font-size: 10pt;
+  text-align: center;
+  border-right: solid 1px;
+  border-bottom: solid 1px;
+  height: 18px;
+}
+.segments > div:last-child {
+  border-right: 0;
+}
+.message {
+  text-align: center;
+  font-size: 40pt;
+  line-height: 210px;
+  margin-top: 19px;
+  height: 221px;
+}
+.counter {
+  height: 140px;
+  font-size: 40pt;
+  text-align: center;
+  line-height: 130px;
+  border-left: 1px solid;
+}
+body {
+  font-family: verdana;
+  font-size: 10pt;
+}
+.left {
+  float: left;
+}
+.right {
+  float: right;
+}
+.centered {
+  width: 495px;
+  display: inline-block;
+  border: solid 1px black;
+  border-top: solid 1px #ccc;
+}
+.hint{
+  font-size: 8pt;
+}
+.bigInput{
+  font-size:20pt;
+  width:60px;
+  font-weight:bold;
+  background:#ccc;
+  font-family: arial;
+  margin-top: 20px;
+  border: solid 1px;
+  text-align: center;
+}
+.normalLineHeight{
+  line-height: 25px;
+}
+.controls > input {
+  border: 0;
+  border-top: solid 1px;
+  margin: 0;
+  height: 100px;
+  width: 100px;
+  background: #444;
+  color: #ccc;
+  font-weight: bold;
+  font-size: 14pt;
+}
+input:first-child {
+  border-left: solid 1px;
+  border-right: solid 1px;
+}
+.go {
+  background: #2B5322;
+}
+.rest {
+  background: #A13529;
+}
+.ready {
+  background: #E8B82F;
+  color: #333;
+}
+.chartlabel{
+  -webkit-transform:rotate(270deg);
+  display: inline-box;
+  width: 60px;
+  position: absolute;
+  margin-top: 40px;
+  margin-left: -20px;
+  font-weight: bold;
+  color: #888;
+}

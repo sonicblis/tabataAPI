@@ -1,0 +1,73 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>tabata!</title>
+    <script data-require="angular.js@*" data-semver="1.2.0-rc3-nonmin" src="http://code.angularjs.org/1.2.0-rc.3/angular.js"></script>
+    <script data-require="angular-resource@*" data-semver="1.2.0-rc.3" src="http://code.angularjs.org/1.2.0-rc.3/angular-resource.js"></script>
+    <script data-require="underscore.js@*" data-semver="1.5.1" src="//cdn.jsdelivr.net/underscorejs/1.5.1/underscore-min.js"></script>
+    <script src="/App/chart.js"></script>
+    <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet" />
+    <link rel="stylesheet" href="/Styles/style.css" />
+    <script src="/app/app.js"></script>
+</head>
+<body ng-app="tabata" ng-controller="CountdownController" ng-keypress="SaveResults($event)">
+    <audio id="whistle">
+        <source src="http://pleasantpasture.com/sounds/whistle.mp3" type="audio/mpeg" />
+    </audio>
+    <div style="width: 500px;">
+        <div class="left content header">
+            <img class="paddedImg" ng-click="SetPushups()" ng-src="http://pleasantpasture.com/images/pushups{{Pushups}}.png" />
+            <img class="paddedImg" ng-click="SetPullups()" ng-src="http://pleasantpasture.com/images/pullups{{Pullups}}.png" />
+            <img class="paddedImg" ng-click="SetSquats()" ng-src="http://pleasantpasture.com/images/squats{{Squats}}.png" />
+            <img ng-click="SetSitups()" ng-src="http://pleasantpasture.com/images/situps{{Situps}}.png" />
+        </div>
+        <div class="centered box content">
+            <div class="left">
+                <div class="segments">
+                    <div ng-repeat="segment in Segments" ng-class="{'rest':SegmentCount < $index + 1,'go':SegmentCount >= $index + 1}">{{$index + 1}}</div>
+                </div>
+                <div class="message" ng-class="{'go':Message == 'GO!','rest':Message == 'Rest...','ready':Message=='Ready?'}">
+                    <div ng-show="Message == 'DONE!'" class="total normalLineHeight">
+                        <br />
+                        <br />
+                        Total              <br />
+                        <input maxlength="4" focus-when="Message == 'DONE!'" class="bigInput" type="text" ng-model="Total" />
+                        <br />
+                        <span class="hint">hit enter to save</span>
+                    </div>
+                    <span ng-hide="Message == 'DONE!'">{{Message}}</span>
+                </div>
+            </div>
+            <div class="right">
+                <div class="counter">{{Minutes}}:{{Seconds | Pad:2:'0'}}</div>
+                <div class="controls">
+                    <input type="button" value="{{AvailableAction}}" ng-click="ChangeStatus()" /><input type="button" value="Stop" ng-click="Stop()" />
+                </div>
+            </div>
+        </div>
+    </div>
+    <div>
+        <div class="chartlabel">Pushups</div>
+        <canvas id="PushupChart" width="497" height="100" style="margin-right: 20px; background: #444;"></canvas>
+        <script>
+            var ctx = document.getElementById("PushupChart").getContext("2d");
+            var myNewChart = new Chart(ctx).Line({
+                labels: ["January", "February", "March", "April", "May", "June", "July"],
+                datasets: [
+                    {
+                        fillColor: "rgba(110,110,110,0.5)",
+                        strokeColor: "rgba(110,110,110,1)",
+                        pointColor: "rgba(220,220,220,1)",
+                        pointStrokeColor: "#444",
+                        data: [76, 82, 88]
+                    }
+                ]
+            });
+        </script>
+        <div ng-repeat="Record in Records">
+            <i class="fa fa-times-circle" ng-click="DeleteRecord(Record)" style="color: red; cursor: pointer;"></i>
+            {{Record.Count}} {{Record.Exercise}} on {{Record.When | date:'MMM d'}}
+        </div>
+    </div>
+</body>
+</html>
