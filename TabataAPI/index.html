@@ -9,6 +9,8 @@
     <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet" />
     <link rel="stylesheet" href="/Styles/style.css" />
     <script src="/app/app.js"></script>
+    <script src="/app/directives.js"></script>
+    <script src="/app/filters.js"></script>
 </head>
 <body ng-app="tabata" ng-controller="CountdownController" ng-keypress="SaveResults($event)">
     <audio id="whistle">
@@ -47,24 +49,8 @@
         </div>
     </div>
     <div>
-        <div class="chartlabel">Pushups</div>
-        <canvas id="PushupChart" width="497" height="100" style="margin-right: 20px; background: #444;"></canvas>
-        <script>
-            var ctx = document.getElementById("PushupChart").getContext("2d");
-            var myNewChart = new Chart(ctx).Line({
-                labels: ["January", "February", "March", "April", "May", "June", "July"],
-                datasets: [
-                    {
-                        fillColor: "rgba(110,110,110,0.5)",
-                        strokeColor: "rgba(110,110,110,1)",
-                        pointColor: "rgba(220,220,220,1)",
-                        pointStrokeColor: "#444",
-                        data: [76, 82, 88]
-                    }
-                ]
-            });
-        </script>
-        <div ng-repeat="Record in Records">
+        
+        <div ng-repeat="Record in Records | Only:Exercise()">
             <i class="fa fa-times-circle" ng-click="DeleteRecord(Record)" style="color: red; cursor: pointer;"></i>
             {{Record.Count}} {{Record.Exercise}} on {{Record.When | date:'MMM d'}}
         </div>

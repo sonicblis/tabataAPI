@@ -89,6 +89,9 @@
   <ItemGroup>
     <Content Include="App\app.js" />
     <Content Include="App\Chart.js" />
+    <Content Include="App\directives.js" />
+    <Content Include="App\filters.js" />
+    <Content Include="App\templates\chart.html" />
     <Content Include="Global.asax" />
     <Content Include="index.html" />
     <Content Include="Styles\style.css" />

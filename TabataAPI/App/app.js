@@ -1,16 +1,6 @@
 ﻿// Code goes here
 var app = angular.module("tabata", ['ngResource']);
 
-app.filter("Pad", function () {
-    return function (input, desiredLength, padWith) {
-        var returnString = input.toString();
-        while (returnString.length < desiredLength) {
-            returnString = padWith + returnString;
-        }
-        return returnString;
-    };
-});
-
 app.service('api', function ($resource) {
     this.Record = $resource('http://tabata.azurewebsites.net/api/record/:id',
         { id: '@id' },
@@ -25,22 +15,6 @@ app.service('api', function ($resource) {
             //   'remove': {method:'DELETE'},
             //   'delete': {method:'DELETE'}
         });
-});
-
-app.directive('focusWhen', function ($timeout, $parse) {
-    return {
-        //scope: true,   // optionally create a child scope
-        link: function (scope, element, attrs) {
-            var model = $parse(attrs.focusWhen);
-            scope.$watch(model, function (value) {
-                if (value === true) {
-                    $timeout(function () {
-                        element[0].focus();
-                    });
-                }
-            });
-        }
-    };
 });
 
 app.controller("CountdownController", function ($scope, api) {
@@ -212,7 +186,19 @@ app.controller("CountdownController", function ($scope, api) {
         ]
     };
 
-    $scope.Records = api.Record.query();
+    //$scope.Records = api.Record.query();
+
+    $scope.Records = [{
+        Count: 10,
+        Exercise: 'Pushups',
+        When: new Date(),
+        Id: 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) { var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8); return v.toString(16); })
+    }, {
+        Count: 20,
+        Exercise: 'Pullups',
+        When: new Date(),
+        Id: 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) { var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8); return v.toString(16); })
+    }]
 
     $scope.DeleteRecord = function (record) {
         if (confirm('you wanna delete this record?')) {
