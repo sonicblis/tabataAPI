@@ -4,9 +4,9 @@
     <title>tabata!</title>
     <script data-require="angular.js@*" data-semver="1.2.0-rc3-nonmin" src="http://code.angularjs.org/1.2.0-rc.3/angular.js"></script>
     <script data-require="angular-resource@*" data-semver="1.2.0-rc.3" src="http://code.angularjs.org/1.2.0-rc.3/angular-resource.js"></script>
-    <script data-require="underscore.js@*" data-semver="1.5.1" src="//cdn.jsdelivr.net/underscorejs/1.5.1/underscore-min.js"></script>
-    <script src="/App/chart.js"></script>
-    <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet" />
+    <script data-require="underscore.js@*" data-semver="1.5.1" src="http://cdn.jsdelivr.net/underscorejs/1.5.1/underscore-min.js"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/Chart.js/0.2.0/Chart.min.js"></script>
+    <link href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet" />
     <link rel="stylesheet" href="/Styles/style.css" />
     <script src="/app/app.js"></script>
     <script src="/app/directives.js"></script>
@@ -18,10 +18,10 @@
     </audio>
     <div style="width: 500px;">
         <div class="left content header">
-            <img class="paddedImg" ng-click="SetPushups()" ng-src="http://pleasantpasture.com/images/pushups{{Pushups}}.png" />
-            <img class="paddedImg" ng-click="SetPullups()" ng-src="http://pleasantpasture.com/images/pullups{{Pullups}}.png" />
-            <img class="paddedImg" ng-click="SetSquats()" ng-src="http://pleasantpasture.com/images/squats{{Squats}}.png" />
-            <img ng-click="SetSitups()" ng-src="http://pleasantpasture.com/images/situps{{Situps}}.png" />
+            <img class="paddedImg" ng-click="SetExercise('Pushups')" ng-src="http://pleasantpasture.com/images/pushups{{Pushups}}.png" />
+            <img class="paddedImg" ng-click="SetExercise('Pullups')" ng-src="http://pleasantpasture.com/images/pullups{{Pullups}}.png" />
+            <img class="paddedImg" ng-click="SetExercise('Squats')" ng-src="http://pleasantpasture.com/images/squats{{Squats}}.png" />
+            <img ng-click="SetExercise('Situps')" ng-src="http://pleasantpasture.com/images/situps{{Situps}}.png" />
         </div>
         <div class="centered box content">
             <div class="left">
@@ -32,7 +32,7 @@
                     <div ng-show="Message == 'DONE!'" class="total normalLineHeight">
                         <br />
                         <br />
-                        Total              <br />
+                        Total <br />
                         <input maxlength="4" focus-when="Message == 'DONE!'" class="bigInput" type="text" ng-model="Total" />
                         <br />
                         <span class="hint">hit enter to save</span>
@@ -49,8 +49,8 @@
         </div>
     </div>
     <div>
-        
-        <div ng-repeat="Record in Records | Only:Exercise()">
+        <chart label="{{Exercise}}" data="Records | Only:Exercise"></chart>
+        <div ng-repeat="Record in Records | Only:Exercise">
             <i class="fa fa-times-circle" ng-click="DeleteRecord(Record)" style="color: red; cursor: pointer;"></i>
             {{Record.Count}} {{Record.Exercise}} on {{Record.When | date:'MMM d'}}
         </div>

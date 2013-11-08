@@ -1,18 +1,4 @@
-﻿<div class="chartlabel">{{label}}</div>
-<canvas id="PushupChart" width="497" height="100" style="margin-right: 20px; background: #444;"></canvas>
-<script>
-    var ctx = document.getElementById("PushupChart").getContext("2d");
-    var myNewChart = new Chart(ctx).Line({
-        labels: ["January", "February", "March", "April", "May", "June", "July"],
-        datasets: [
-            {
-                fillColor: "rgba(110,110,110,0.5)",
-                strokeColor: "rgba(110,110,110,1)",
-                pointColor: "rgba(220,220,220,1)",
-                pointStrokeColor: "#444",
-                data: [76, 82, 88]
-            }
-        ]
-    });
-</script>
-
+﻿<div>
+    <div class="chartlabel">{{label}}</div>
+    <canvas id="PushupChart" width="497" height="100" style="margin-right: 20px; background: #444;"></canvas>
+</div>

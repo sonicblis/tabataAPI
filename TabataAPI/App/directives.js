@@ -15,20 +15,18 @@
 });
 
 app.directive('chart', function () {
-    return {
+    return {        
         link: function (scope, element, attrs) {
-            console.log('scope', scope);
-
-            scope.$watch('data', function (value) {
+            scope.$watch('Data', function (value) {
+                console.log(value);
                 var labels = [], data = [];
                 for (var i in value) {
-                    labels.push(value[i].Label);
+                    labels.push(value[i].When);
                     data.push(value[i].Count);
                 }
-
                 var ctx = document.getElementById("PushupChart").getContext("2d");
                 var myNewChart = new Chart(ctx).Line({
-                    labels: labels,
+                    labels: new Array(labels.length),
                     datasets: [
                         {
                             fillColor: "rgba(110,110,110,0.5)",
@@ -42,9 +40,9 @@ app.directive('chart', function () {
             }, true);
         },
         restrict: 'E',
-        templateUrl: 'chart.html',
+        templateUrl: 'app/templates/chart.html',
         scope: {
-            data: '=',
+            Data: '=data',
             label: '@'
         }
     };

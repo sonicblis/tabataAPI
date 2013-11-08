@@ -33,25 +33,11 @@ app.controller("CountdownController", function ($scope, api) {
     $scope.Segments = [0, 1, 2, 3, 4, 5, 6, 7];
     $scope.AvailableAction = "Start";
 
-    $scope.SetPushups = function () {
+    $scope.SetExercise = function (exercise) {
         $scope.ClearExercises();
-        $scope.Pushups = '';
+        $scope[exercise] = '';
         $scope.Ready = true;
-    };
-    $scope.SetPullups = function () {
-        $scope.ClearExercises();
-        $scope.Pullups = '';
-        $scope.Ready = true;
-    };
-    $scope.SetSquats = function () {
-        $scope.ClearExercises();
-        $scope.Squats = '';
-        $scope.Ready = true;
-    };
-    $scope.SetSitups = function () {
-        $scope.ClearExercises();
-        $scope.Situps = '';
-        $scope.Ready = true;
+        $scope.Exercise = exercise;
     };
 
     $scope.ClearExercises = function () {
@@ -142,20 +128,7 @@ app.controller("CountdownController", function ($scope, api) {
         $scope.AvailableAction = "Reset";
     };
 
-    $scope.Exercise = function () {
-        if ($scope.Pushups === '') {
-            return "Pushups";
-        }
-        if ($scope.Pullups === '') {
-            return "Pullups";
-        }
-        if ($scope.Squats === '') {
-            return "Squats";
-        }
-        if ($scope.Situps === '') {
-            return "Situps";
-        }
-    };
+    $scope.Exercise = '';
 
     $scope.Record = function () {
         return {
@@ -164,26 +137,6 @@ app.controller("CountdownController", function ($scope, api) {
             When: new Date(),
             Id: 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) { var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8); return v.toString(16); })
         };
-    };
-
-    $scope.PushupData = {
-        labels: ["January", "February", "March", "April", "May", "June", "July"],
-        datasets: [
-        {
-            fillColor: "rgba(220,220,220,0.5)",
-            strokeColor: "rgba(220,220,220,1)",
-            pointColor: "rgba(220,220,220,1)",
-            pointStrokeColor: "#fff",
-            data: [65, 59, 90, 81, 56, 55, 40]
-        },
-            {
-                fillColor: "rgba(151,187,205,0.5)",
-                strokeColor: "rgba(151,187,205,1)",
-                pointColor: "rgba(151,187,205,1)",
-                pointStrokeColor: "#fff",
-                data: [28, 48, 40, 19, 96, 27, 100]
-            }
-        ]
     };
 
     //$scope.Records = api.Record.query();
@@ -195,6 +148,16 @@ app.controller("CountdownController", function ($scope, api) {
         Id: 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) { var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8); return v.toString(16); })
     }, {
         Count: 20,
+        Exercise: 'Pushups',
+        When: new Date(),
+        Id: 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) { var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8); return v.toString(16); })
+    }, {
+        Count: 30,
+        Exercise: 'Pullups',
+        When: new Date(),
+        Id: 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) { var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8); return v.toString(16); })
+    }, {
+        Count: 40,
         Exercise: 'Pullups',
         When: new Date(),
         Id: 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) { var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8); return v.toString(16); })
