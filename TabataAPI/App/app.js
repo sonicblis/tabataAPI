@@ -144,22 +144,22 @@ app.controller("CountdownController", function ($scope, api) {
     $scope.Records = [{
         Count: 10,
         Exercise: 'Pushups',
-        When: new Date(),
+        When: new Date().toDateString(),
         Id: 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) { var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8); return v.toString(16); })
     }, {
         Count: 20,
         Exercise: 'Pushups',
-        When: new Date(),
+        When: new Date().toDateString(),
         Id: 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) { var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8); return v.toString(16); })
     }, {
         Count: 30,
         Exercise: 'Pullups',
-        When: new Date(),
+        When: new Date().toDateString(),
         Id: 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) { var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8); return v.toString(16); })
     }, {
         Count: 40,
         Exercise: 'Pullups',
-        When: new Date(),
+        When: new Date().toDateString(),
         Id: 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) { var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8); return v.toString(16); })
     }]
 
