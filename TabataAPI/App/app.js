@@ -1,23 +1,11 @@
 ﻿// Code goes here
 var app = angular.module("tabata", ['ngResource']);
 
-app.service('api', function ($resource) {
-    this.Record = $resource('http://tabata.azurewebsites.net/api/record/:id',
-        { id: '@id' },
-        {
-            list: { method: 'GET', isArray: true }, //same as query
-            create: { method: 'POST', headers: { origin: 'http://run.plnkr.co' } }, // same as save
-            update: { method: 'PUT' }
-            // DEFAULT IMPLEMENTATION OF $RESOURCE
-            //   'get':    {method:'GET'},
-            //   'save':   {method:'POST'},
-            //   'query':  {method:'GET', isArray:true},
-            //   'remove': {method:'DELETE'},
-            //   'delete': {method:'DELETE'}
-        });
-});
+app.controller("CountdownController", function ($scope, api, $cookieManager) {
+    function NewGuid(){
+        return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) { var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8); return v.toString(16); });
+    }
 
-app.controller("CountdownController", function ($scope, api) {
     $scope.Pushups = '_off';
     $scope.Pullups = '_off';
     $scope.Squats = '_off';
@@ -32,6 +20,13 @@ app.controller("CountdownController", function ($scope, api) {
     $scope.Minutes = 4;
     $scope.Segments = [0, 1, 2, 3, 4, 5, 6, 7];
     $scope.AvailableAction = "Start";
+
+    $scope.UserId = $cookieManager('auth');
+
+    $scope.SetUser = $cookieManager('auth', {
+        value: NewGuid(),
+        expires: 120
+    });
 
     $scope.SetExercise = function (exercise) {
         $scope.ClearExercises();
@@ -145,22 +140,22 @@ app.controller("CountdownController", function ($scope, api) {
         Count: 10,
         Exercise: 'Pushups',
         When: new Date().toDateString(),
-        Id: 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) { var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8); return v.toString(16); })
+        Id: NewGuid()
     }, {
         Count: 20,
         Exercise: 'Pushups',
         When: new Date().toDateString(),
-        Id: 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) { var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8); return v.toString(16); })
+        Id: NewGuid()
     }, {
         Count: 30,
         Exercise: 'Pullups',
         When: new Date().toDateString(),
-        Id: 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) { var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8); return v.toString(16); })
+        Id: NewGuid()
     }, {
         Count: 40,
         Exercise: 'Pullups',
         When: new Date().toDateString(),
-        Id: 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) { var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8); return v.toString(16); })
+        Id: NewGuid()
     }]
 
     $scope.DeleteRecord = function (record) {

@@ -8,8 +8,16 @@
     };
 });
 
+var cache = {};
 app.filter('Only', function () {
     return function (input, exercise) {
-        return _.where(input, { Exercise: exercise });
+        cacheString = exercise + input.length.toString();
+        if (!cache[cacheString]) {
+            cache[cacheString] = _.where(input, { Exercise: exercise });
+            return cache[cacheString];
+        }
+        else{
+            return cache[cacheString];
+        }
     };
 });

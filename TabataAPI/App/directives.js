@@ -17,8 +17,7 @@
 app.directive('chart', function () {
     return {        
         link: function (scope, element, attrs) {
-            scope.$watch('Data', function (value) {
-                console.log(value);
+            scope.$watch('Data', function (value) {                
                 var labels = [], data = [];
                 for (var i in value) {
                     labels.push(value[i].When);
@@ -26,7 +25,7 @@ app.directive('chart', function () {
                 }
                 var ctx = document.getElementById("PushupChart").getContext("2d");
                 var myNewChart = new Chart(ctx).Line({
-                    labels: new Array(labels.length),
+                    labels: labels,
                     datasets: [
                         {
                             fillColor: "rgba(110,110,110,0.5)",
