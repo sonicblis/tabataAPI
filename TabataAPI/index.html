@@ -14,7 +14,7 @@
     <script src="/app/filters.js"></script>
     <script src="/app/config.js"></script>
 </head>
-<body ng-app="tabata" ng-controller="CountdownController" ng-keypress="SaveResults($event)">
+<body ng-app="tabata" ng-controller="CountdownController" ng-keypress="KeyPress($event)">
     <audio id="whistle">
         <source src="http://pleasantpasture.com/sounds/whistle.mp3" type="audio/mpeg" />
     </audio>
@@ -23,8 +23,8 @@
         <input ng-model="Password" type="password" placeholder="password" />
         <span ng-click="AuthenticateUser()" class="button smallFont">Login</span><br />
         <input ng-model="UserName" placeholder="Nickname" />
-        <span ng-click="CreateUser()" class="button smallFont">Register</span>        
-    </div>    
+        <span ng-click="CreateUser()" class="button smallFont">Register</span>
+    </div>
     <div style="width: 500px;">
         <div class="left content header dividerTop">
             <img class="paddedImg" ng-click="SetExercise('Pushups')" ng-src="http://pleasantpasture.com/images/pushups{{Pushups}}.png" />
@@ -44,7 +44,7 @@
                         Total <br />
                         <input maxlength="4" focus-when="Message == 'DONE!'" class="bigInput" type="text" ng-model="Total" />
                         <br />
-                        <span class="hint">hit enter to save</span>
+                        <span class="hint">hit enter to save</span><br />
                     </div>
                     <span ng-hide="Message == 'DONE!'">{{Message}}</span>
                 </div>
@@ -63,6 +63,6 @@
                 {{Record.Count}} {{Record.Exercise}} on {{Record.When | date:'MMM d'}}
             </div>
         </div>
-    </div>    
+    </div>
 </body>
 </html>

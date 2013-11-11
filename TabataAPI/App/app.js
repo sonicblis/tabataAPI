@@ -90,8 +90,8 @@ app.controller("CountdownController", function ($scope, api, $cookieManager) {
             $scope.AvailableAction = "Resume";
             clearTimeout($scope.Timer);
         }
-        else if ($scope.AvailableAction == "Reset") {
-            $scope.Stop();
+        else if ($scope.AvailableAction == "Save") {
+            $scope.SaveResults();
         }
     };
 
@@ -100,7 +100,7 @@ app.controller("CountdownController", function ($scope, api, $cookieManager) {
             $scope.Message = "Ready?";
         }
         $scope.AvailableAction = "Pause";
-        $scope.Timer = setInterval(function () { $scope.$apply($scope.TickTimer) }, 10);
+        $scope.Timer = setInterval(function () { $scope.$apply($scope.TickTimer) }, 1000);
     };
 
     $scope.TickTimer = function () {
@@ -156,7 +156,7 @@ app.controller("CountdownController", function ($scope, api, $cookieManager) {
 
     $scope.End = function () {
         $scope.Message = "DONE!";
-        $scope.AvailableAction = "Reset";
+        $scope.AvailableAction = "Save";
     };
     
     $scope.Exercise = '';
@@ -180,24 +180,31 @@ app.controller("CountdownController", function ($scope, api, $cookieManager) {
     $scope.DeleteRecord = function (record) {
         if (confirm('you wanna delete this record?')) {
             api.Records.delete(record, function () {
-                $scope.Records = _.without($scope.Records, record);
+                $scope.GetRecords();
             });
         }
-    };    
+    };
 
-    $scope.SaveResults = function ($event) {
-        if ($event.keyCode == 13 && $scope.Total !== '') {
+    $scope.KeyPress = function ($event) {
+        if ($event.keyCode == 13) {
+            $scope.SaveResults();
+        };
+    }
+
+    $scope.SaveResults = function () {
+        if ($scope.Total !== ''){
             api.Records.save(
                 $scope.Record(),
                 function () {
                     $scope.Records.unshift($scope.Record);
                     $scope.Stop();
+                    $scope.GetRecords();
                 },
                 function (result) {
                     alert('oh... oh no.  There\'s been an error (code: ' + result.status + ')');
                     console.log(result);
                 }
-            );
+            );        
         }
     };
 
