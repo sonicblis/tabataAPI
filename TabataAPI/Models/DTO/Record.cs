@@ -6,9 +6,10 @@ using System.Web;
 namespace TabataAPI.Models.DTO
 {
     public class Record
-    {        
+    {
+        public Guid Id { get; set; }
 		public int Count { get; set; }
-		public DateTime When { get; set; }
-		public string Exercise { get; set; }
+		public string When { get; set; }
+		public Exercise Exercise { get; set; }
     }
 }

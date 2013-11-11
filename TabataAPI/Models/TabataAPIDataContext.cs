@@ -9,5 +9,7 @@ namespace TabataAPI.Models
     public class TabataAPIDataContext : DbContext
     {
         public DbSet<Record> Records { get; set; }
+
+        public System.Data.Entity.DbSet<TabataAPI.Models.User> Users { get; set; }
     }
 }

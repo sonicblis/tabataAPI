@@ -1,6 +1,5 @@
 ﻿app.directive('focusWhen', function ($timeout, $parse) {
-    return {
-        //scope: true,   // optionally create a child scope
+    return {        
         link: function (scope, element, attrs) {
             var model = $parse(attrs.focusWhen);
             scope.$watch(model, function (value) {

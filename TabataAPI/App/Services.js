@@ -1,17 +1,14 @@
-﻿app.service('api', function ($resource) {
-    this.Record = $resource('http://tabata.azurewebsites.net/api/record/:id',
-        { id: '@id' },
-        {
-            list: { method: 'GET', isArray: true }, //same as query
-            create: { method: 'POST', headers: { origin: 'http://run.plnkr.co' } }, // same as save
-            update: { method: 'PUT' }
-            // DEFAULT IMPLEMENTATION OF $RESOURCE
-            //   'get':    {method:'GET'},
-            //   'save':   {method:'POST'},
-            //   'query':  {method:'GET', isArray:true},
-            //   'remove': {method:'DELETE'},
-            //   'delete': {method:'DELETE'}
-        });
+﻿app.service('api', function ($resource) {    
+    this.Records = $resource('http://tabata.azurewebsites.net/api/record/:id', { id: '@id', userId: '@userId' });
+    this.Users = $resource('http://tabata.azurewebsites.net/api/user/:id', { id: '@id' }, {
+        find: {
+            method: 'GET',
+            params: {
+                username: '@username',
+                password: '@password'
+            }
+        }
+    });
 });
 
 app.factory('$cookieManager', function () {

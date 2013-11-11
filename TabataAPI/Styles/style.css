@@ -17,6 +17,13 @@ img:last-child{
 .paddedImg{
   padding-right: 6px;
 }
+.button{
+    padding: 3px;
+    background: #555;
+    color: #ccc;
+    text-align: center;
+    cursor: pointer;
+}
 .content {
   background: #444;
   color: #ccc;
@@ -25,7 +32,7 @@ img:last-child{
 }
 .segments > div {
   float: left;
-  width: 36px;
+  width: 35px;
   font-weight: normal;
   font-size: 10pt;
   text-align: center;
@@ -42,6 +49,25 @@ img:last-child{
   line-height: 210px;
   margin-top: 19px;
   height: 221px;
+}
+#login{
+    text-align: right;  
+    padding-bottom: 2px;  
+}
+#login input{
+    border: solid 1px black;
+    padding: 2px;
+    font-size: 8pt;
+    width: 120px;
+}
+#login .button{
+    width: 100px;
+    display: inline-block;
+    margin-right: 4px;
+}
+.smallFont{
+    font-size: 8pt;
+    font-weight: normal;
 }
 .counter {
   height: 140px;
@@ -64,6 +90,8 @@ body {
   width: 495px;
   display: inline-block;
   border: solid 1px black;
+}
+.dividerTop{
   border-top: solid 1px #ccc;
 }
 .hint{
@@ -82,18 +110,21 @@ body {
 .normalLineHeight{
   line-height: 25px;
 }
-.controls > input {
+.controls > .control {
   border: 0;
+  display: inline-block;
   border-top: solid 1px;
   margin: 0;
   height: 100px;
-  width: 100px;
+  width: 97px;
   background: #444;
   color: #ccc;
   font-weight: bold;
   font-size: 14pt;
+  text-align: center;
+  line-height: 98px;
 }
-input:first-child {
+.control:first-child {
   border-left: solid 1px;
   border-right: solid 1px;
 }

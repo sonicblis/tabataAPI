@@ -89,6 +89,7 @@
   <ItemGroup>
     <Content Include="App\app.js" />
     <Content Include="App\Chart.js" />
+    <Content Include="App\config.js" />
     <Content Include="App\directives.js" />
     <Content Include="App\filters.js" />
     <Content Include="App\services.js" />
@@ -103,6 +104,7 @@
   <ItemGroup>
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\RecordController.cs" />
+    <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -115,7 +117,8 @@
   <ItemGroup>
     <Content Include="packages.config" />
     <Content Include="ClassDiagram1.cd" />
-    <None Include="Properties\PublishProfiles\tabata.pubxml" />
+    <None Include="Properties\PublishProfiles\tabata - FTP.pubxml" />
+    <None Include="Properties\PublishProfiles\tabata - Web Deploy.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

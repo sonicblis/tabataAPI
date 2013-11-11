@@ -1,5 +1,4 @@
-﻿// Code goes here
-var app = angular.module("tabata", ['ngResource']);
+﻿var app = angular.module("tabata", ['ngResource']);
 
 app.controller("CountdownController", function ($scope, api, $cookieManager) {
     function NewGuid(){
@@ -21,12 +20,49 @@ app.controller("CountdownController", function ($scope, api, $cookieManager) {
     $scope.Segments = [0, 1, 2, 3, 4, 5, 6, 7];
     $scope.AvailableAction = "Start";
 
+    $scope.AuthenticateUser = function () {
+        api.Users.find({ username: $scope.Email, password: $scope.Password }, function (result) {
+            $scope.SetUser(result.Id);
+            $scope.GetRecords();
+        }, function (result) {
+            if (result.status === 404) {
+                alert('that e-mail and password doesn\'t exist');
+            };
+        });
+    };
+
+    $scope.CreateUser = function () {
+        var newUser = {
+            Id: NewGuid(),
+            Name: $scope.UserName,
+            Email: $scope.Email,
+            Password: $scope.Password
+        };
+        api.Users.save(newUser,
+            function (result) {
+                $scope.SetUser(newUser.Id);
+                $scope.GetRecords();
+            },
+            function (result) {
+                if (result.status == 409) {
+                    alert('That e-mail is already in use.');
+                }
+                else{
+                    alert('There was a tragic error (errorcode: ' + result.status + ') trying to create your account.');
+                }
+            }
+        );
+    };
+
     $scope.UserId = $cookieManager('auth');
 
-    $scope.SetUser = $cookieManager('auth', {
-        value: NewGuid(),
-        expires: 120
-    });
+    $scope.SetUser = function(id){ 
+        $cookieManager('auth', {
+            value: id,
+            expires: 120
+        });
+        $scope.UserId = $cookieManager('auth');
+    }
 
     $scope.SetExercise = function (exercise) {
         $scope.ClearExercises();
@@ -64,7 +100,7 @@ app.controller("CountdownController", function ($scope, api, $cookieManager) {
             $scope.Message = "Ready?";
         }
         $scope.AvailableAction = "Pause";
-        $scope.Timer = setInterval(function () { $scope.$apply($scope.TickTimer) }, 1000);
+        $scope.Timer = setInterval(function () { $scope.$apply($scope.TickTimer) }, 10);
     };
 
     $scope.TickTimer = function () {
@@ -122,55 +158,50 @@ app.controller("CountdownController", function ($scope, api, $cookieManager) {
         $scope.Message = "DONE!";
         $scope.AvailableAction = "Reset";
     };
-
+    
     $scope.Exercise = '';
 
     $scope.Record = function () {
         return {
             Count: $scope.Total,
-            Exercise: $scope.Exercise(),
+            Exercise: $scope.Exercise,
             When: new Date(),
+            User: {Id: $scope.UserId},
             Id: 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) { var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8); return v.toString(16); })
         };
     };
 
-    //$scope.Records = api.Record.query();
+    $scope.Records = [];
 
-    $scope.Records = [{
-        Count: 10,
-        Exercise: 'Pushups',
-        When: new Date().toDateString(),
-        Id: NewGuid()
-    }, {
-        Count: 20,
-        Exercise: 'Pushups',
-        When: new Date().toDateString(),
-        Id: NewGuid()
-    }, {
-        Count: 30,
-        Exercise: 'Pullups',
-        When: new Date().toDateString(),
-        Id: NewGuid()
-    }, {
-        Count: 40,
-        Exercise: 'Pullups',
-        When: new Date().toDateString(),
-        Id: NewGuid()
-    }]
+    $scope.GetRecords = function () {
+        $scope.Records = api.Records.query({ userId: $scope.UserId });
+    };
 
     $scope.DeleteRecord = function (record) {
         if (confirm('you wanna delete this record?')) {
-            api.Record.delete(record, function () {
+            api.Records.delete(record, function () {
                 $scope.Records = _.without($scope.Records, record);
             });
         }
-    };
+    };    
 
     $scope.SaveResults = function ($event) {
         if ($event.keyCode == 13 && $scope.Total !== '') {
-            api.Record.create($scope.Record(), function () {
-                $scope.Records.unshift($scope.Record);
-            });
+            api.Records.save(
+                $scope.Record(),
+                function () {
+                    $scope.Records.unshift($scope.Record);
+                    $scope.Stop();
+                },
+                function (result) {
+                    alert('oh... oh no.  There\'s been an error (code: ' + result.status + ')');
+                    console.log(result);
+                }
+            );
         }
     };
+
+    if ($scope.UserId != undefined) {
+        $scope.GetRecords();
+    }
 });

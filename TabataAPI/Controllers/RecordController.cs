@@ -19,9 +19,25 @@ namespace TabataAPI.Controllers
         private TabataAPIDataContext db = new TabataAPIDataContext();
 
         // GET api/Record
-        public IQueryable<Record> GetRecords()
-        {			
-			return db.Records;
+        public List<Models.DTO.Record> GetRecords(Guid userId)
+        {
+            var records = new List<Models.DTO.Record>();
+            var exercises = Enum.GetValues(typeof(Exercise));
+            foreach (var exercise in exercises)
+            {
+                var latestExerciseHistory = db.Records.Where(e => e.User.Id == userId && e.Exercise == (Exercise)exercise).Take(10).OrderByDescending(r => r.When).ToList();
+                latestExerciseHistory.ForEach(l =>
+                {
+                    records.Add(new Models.DTO.Record
+                    {
+                        Count = l.Count,
+                        Exercise = l.Exercise,
+                        Id = l.Id,
+                        When = l.When.ToShortDateString()
+                    });
+                });
+            }
+			return records;
         }
 
         // GET api/Record/5
@@ -81,6 +97,7 @@ namespace TabataAPI.Controllers
                 return BadRequest(ModelState);
             }
 
+            db.Users.Attach(record.User);
             db.Records.Add(record);
 
             try
