@@ -12,20 +12,19 @@
     <script src="/app/directives.js"></script>
     <script src="/app/services.js"></script>
     <script src="/app/filters.js"></script>
-    <script src="/app/config.js"></script>
 </head>
 <body ng-app="tabata" ng-controller="CountdownController" ng-keypress="KeyPress($event)">
     <audio id="whistle">
         <source src="http://pleasantpasture.com/sounds/whistle.mp3" type="audio/mpeg" />
-    </audio>
-    <div id="login" ng-show="UserId == undefined" class="centered box content">
-        <input ng-model="Email" placeholder="e-mail" />
-        <input ng-model="Password" type="password" placeholder="password" />
-        <span ng-click="AuthenticateUser()" class="button smallFont">Login</span><br />
-        <input ng-model="UserName" placeholder="Nickname" />
-        <span ng-click="CreateUser()" class="button smallFont">Register</span>
-    </div>
+    </audio>   
     <div style="width: 500px;">
+        <div id="login" ng-show="UserId == undefined" class="centered box content">
+            <input ng-model="Email" placeholder="e-mail" />
+            <input ng-model="Password" type="password" placeholder="password" />
+            <span ng-click="AuthenticateUser()" class="button smallFont">Login</span><br />
+            <input ng-model="UserName" placeholder="Nickname" />
+            <span ng-click="CreateUser()" class="button smallFont">Register</span>
+        </div>
         <div class="left content header dividerTop">
             <img class="paddedImg" ng-click="SetExercise('Pushups')" ng-src="http://pleasantpasture.com/images/pushups{{Pushups}}.png" />
             <img class="paddedImg" ng-click="SetExercise('Pullups')" ng-src="http://pleasantpasture.com/images/pullups{{Pullups}}.png" />

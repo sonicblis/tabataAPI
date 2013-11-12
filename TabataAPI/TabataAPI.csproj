@@ -89,7 +89,6 @@
   <ItemGroup>
     <Content Include="App\app.js" />
     <Content Include="App\Chart.js" />
-    <Content Include="App\config.js" />
     <Content Include="App\directives.js" />
     <Content Include="App\filters.js" />
     <Content Include="App\services.js" />

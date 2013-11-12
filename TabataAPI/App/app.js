@@ -31,27 +31,36 @@ app.controller("CountdownController", function ($scope, api, $cookieManager) {
         });
     };
 
-    $scope.CreateUser = function () {
-        var newUser = {
-            Id: NewGuid(),
-            Name: $scope.UserName,
-            Email: $scope.Email,
-            Password: $scope.Password
-        };
-        api.Users.save(newUser,
-            function (result) {
-                $scope.SetUser(newUser.Id);
-                $scope.GetRecords();
-            },
-            function (result) {
-                if (result.status == 409) {
-                    alert('That e-mail is already in use.');
+    $scope.Guard = function (val) {
+        return (val !== undefined && val !== null && val !== '');
+    }
+
+    $scope.CreateUser = function () {        
+        if (!$scope.Guard($scope.Email) || !$scope.Guard($scope.UserName) || !$scope.Guard($scope.Password)){
+            alert('Come on.  You can\'t make a profile without all the fields filled in.');
+        }
+        else {
+            var newUser = {
+                Id: NewGuid(),
+                Name: $scope.UserName,
+                Email: $scope.Email,
+                Password: $scope.Password
+            };
+            api.Users.save(newUser,
+                function (result) {
+                    $scope.SetUser(newUser.Id);
+                    $scope.GetRecords();
+                },
+                function (result) {
+                    if (result.status == 409) {
+                        alert('That e-mail is already in use.');
+                    }
+                    else {
+                        alert('There was a tragic error (errorcode: ' + result.status + ') trying to create your account.');
+                    }
                 }
-                else{
-                    alert('There was a tragic error (errorcode: ' + result.status + ') trying to create your account.');
-                }
-            }
-        );
+            );
+        }
     };
 
     $scope.UserId = $cookieManager('auth');
