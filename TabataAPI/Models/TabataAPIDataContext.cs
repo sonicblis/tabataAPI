@@ -11,5 +11,7 @@ namespace TabataAPI.Models
         public DbSet<Record> Records { get; set; }
 
         public System.Data.Entity.DbSet<TabataAPI.Models.User> Users { get; set; }
+
+        public System.Data.Entity.DbSet<TabataAPI.Models.Subscription> Subscriptions { get; set; }
     }
 }
