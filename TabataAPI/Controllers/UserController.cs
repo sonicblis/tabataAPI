@@ -18,9 +18,8 @@ namespace TabataAPI.Controllers
 
         // GET api/User
         public IQueryable<User> GetUsers()
-        {
-            //return db.Users;
-            return null;
+        {            
+            return db.Users;
         }
 
         [ResponseType(typeof(User))]
