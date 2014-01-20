@@ -37,7 +37,8 @@ namespace TabataAPI.Controllers
                     });
                 });
             }
-			return records.OrderBy(r => r.When).ToList();
+            records.Reverse();
+			return records;//.OrderBy(r => r.When).ToList();
         }
 
         // GET api/Record/5
